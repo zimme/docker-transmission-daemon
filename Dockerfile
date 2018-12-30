@@ -9,6 +9,7 @@ RUN apk add --no-cache --purge -uU \
   transmission-daemon \
   tzdata
 
+COPY ./entrypoint.sh /
 COPY ./settings.json /config/
 
 RUN mkdir /downloads
@@ -26,8 +27,11 @@ HEALTHCHECK \
   --retries=3 \
   CMD [ "curl", "http://localhost:9091" ]
 
-USER transmission
+ENV UID=2000
+ENV GID=2000
+ENV GIDS=
+ENV TZDATA=
 
-ENTRYPOINT [ "/sbin/tini", "--" ]
+ENTRYPOINT [ "/sbin/tini", "--", "/entrypoint.sh" ]
 
 CMD [ "transmission-daemon", "-g", "/config", "--foreground" ]
