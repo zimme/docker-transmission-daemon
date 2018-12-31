@@ -10,7 +10,11 @@ if [ $GIDS ]; then
 
   for TMP_GID in $GIDS; do
 
-    groupadd -g "$TMP_GID" "g$TMP_GID"
+    if [ $(getent group "$TMP_GID") ]; then
+
+      groupadd -g "$TMP_GID" "g$TMP_GID"
+
+    fi
 
   done
 
