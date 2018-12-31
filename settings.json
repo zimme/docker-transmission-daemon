@@ -1,4 +1,5 @@
 {
   "download-dir": "/downloads",
+  "rpc-host-whitelist-enabled": false,
   "rpc-whitelist-enabled": false
 }
