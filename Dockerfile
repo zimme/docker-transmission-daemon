@@ -4,12 +4,10 @@ LABEL maintainer zimme
 
 RUN apk add --no-cache --purge -uU \
   curl \
-  shadow \
   tini \
   transmission-daemon \
   tzdata
 
-COPY ./entrypoint.sh /
 COPY ./settings.json /config/
 
 RUN mkdir /downloads
@@ -27,11 +25,8 @@ HEALTHCHECK \
   --retries=3 \
   CMD [ "curl", "http://localhost:9091" ]
 
-ENV UID=2000
-ENV GID=2000
-ENV GIDS=
-ENV TZDATA=
+USER transmission
 
-ENTRYPOINT [ "/sbin/tini", "--", "/entrypoint.sh" ]
+ENTRYPOINT [ "/sbin/tini", "--", "transmission-daemon" ]
 
-CMD [ "transmission-daemon", "-g", "/config", "--foreground" ]
+CMD [ "-g", "/config", "--foreground" ]
