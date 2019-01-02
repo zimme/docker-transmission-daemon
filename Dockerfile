@@ -4,7 +4,6 @@ LABEL maintainer zimme
 
 RUN apk add --no-cache --purge -uU \
   curl \
-  tini \
   transmission-daemon \
   tzdata
 
@@ -27,6 +26,6 @@ HEALTHCHECK \
 
 USER transmission
 
-ENTRYPOINT [ "/sbin/tini", "--", "transmission-daemon" ]
+ENTRYPOINT [ "transmission-daemon" ]
 
 CMD [ "-g", "/config", "--foreground" ]
