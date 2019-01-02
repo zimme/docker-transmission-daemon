@@ -7,15 +7,15 @@ RUN apk add --no-cache --purge -uU \
   transmission-daemon \
   tzdata
 
-COPY ./settings.json /config/
-
-RUN mkdir /downloads
+RUN mkdir /config /downloads
 
 RUN chown -R transmission:transmission /config /downloads
 
-EXPOSE 9091 51413 51413/udp
+COPY --chown=transmission:transmission ./settings.json /config/
 
 VOLUME [ "/config", "/downloads" ]
+
+EXPOSE 9091 51413 51413/udp
 
 HEALTHCHECK \
   --interval=30s \
@@ -28,4 +28,4 @@ USER transmission
 
 ENTRYPOINT [ "transmission-daemon" ]
 
-CMD [ "-g", "/config", "--foreground" ]
+CMD [ "--config-dir", "/config", "--foreground" ]
