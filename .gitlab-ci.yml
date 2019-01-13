@@ -2,12 +2,16 @@ image: 'docker:stable'
 services:
   - 'docker:dind'
 variables:
-  CONTAINER_IMAGE: registry.gitlab.com/$CI_PROJECT_PATH
-  DOCKER_HOST: 'tcp://docker:2375'
+  IMAGE_NAME: transmission-daemon
+  REGISTRY_URL: registry.gitlab.com
+  CONTAINER_IMAGE: $REGISTRY_URL/$CI_PROJECT_NAMESPACE/$IMAGE_NAME
   DOCKER_DRIVER: overlay2
+  DOCKER_HOST: 'tcp://docker:2375'
+  DOCKER_USER: gitlab-ci-token
 before_script:
-  - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
+  - docker login -u $DOCKER_USER -p $CI_JOB_TOKEN $REGISTRY_URL
 build:
+  only: master
   stage: build
   script:
     - 'docker pull $CONTAINER_IMAGE:latest || true'
