@@ -1,6 +1,6 @@
 # zimme/transmission-daemon
 
-Minimal Docker image for `transmission-daemon` based on alpine.
+Minimal `transmission-daemon` image based on alpine.
 
 This Docker image will run `transmission-daemon` with `--config-dir /config` by
 default.  
