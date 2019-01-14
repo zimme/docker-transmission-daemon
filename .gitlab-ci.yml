@@ -3,7 +3,8 @@ services:
   - 'docker:dind'
 variables:
   IMAGE_NAME: transmission-daemon
-  IMAGE_URL: $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$IMAGE_NAME
+  IMAGE_REFERENCE: $CI_PROJECT_NAMESPACE/$IMAGE_NAME
+  IMAGE_URL: $CI_REGISTRY/$IMAGE_REFERENCE
   DOCKER_DRIVER: overlay2
   DOCKER_HOST: 'tcp://docker:2375'
 before_script:
@@ -15,7 +16,7 @@ build:
   script:
     - 'docker pull $IMAGE_URL:latest || true'
     - >-
-      docker build --cache-from $IMAGE_URL:latest --tag
-      $IMAGE_URL:$CI_COMMIT_SHA --tag $IMAGE_URL:latest .
+      docker build --cache-from $IMAGE_REFERENCE:latest --tag
+      $IMAGE_REFERENCE:$CI_COMMIT_SHA --tag $IMAGE_REFERENCE:latest .
     - 'docker push $IMAGE_URL:$CI_COMMIT_SHA'
     - 'docker push $IMAGE_URL:latest'
