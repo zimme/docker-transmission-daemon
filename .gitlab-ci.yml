@@ -17,6 +17,5 @@ build:
     - 'docker pull $IMAGE_URL:latest || true'
     - >-
       docker build --cache-from $IMAGE_REFERENCE:latest --tag
-      $IMAGE_REFERENCE:$CI_COMMIT_SHA --tag $IMAGE_REFERENCE:latest .
-    - 'docker push $IMAGE_URL:$CI_COMMIT_SHA'
+      $IMAGE_REFERENCE:latest .
     - 'docker push $IMAGE_URL:latest'
