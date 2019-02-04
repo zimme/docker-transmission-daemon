@@ -11,7 +11,7 @@ When using a named volume for `/config` this image will setup a default
 when using the default config.
 
 The image will run `transmission-daemon` as the user and group `transmission`
-with with `uid = 100` and `gid = 101`, to override this use the `-u` and/or
+with `uid = 100` and `gid = 101`, to override this use the `-u` and/or
 `--group-add` of `docker run`.
 
 I recommend using `--init` when running this image.
