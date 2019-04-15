@@ -4,17 +4,17 @@ Minimal `transmission-daemon` image based on alpine.
 
 This Docker image will run `transmission-daemon` with `--config-dir /config` by
 default.  
-I recommended bind-mounting a named volume `transmission-config` on `/config` to
+It's recommended to mount a named volume `transmission-config` on `/config` to
 make sure config is saved when container is stopped or removed.  
 When using a named volume for `/config` this image will setup a default
-`settings.json` file. You're expected to bind-mount a host path on `/downloads`,
+`settings.json` file. It's expected to bind-mount a host path on `/downloads`,
 when using the default config.
 
 The image will run `transmission-daemon` as the user and group `transmission`
 with `uid = 100` and `gid = 101`, to override this use the `-u` and/or
 `--group-add` of `docker run`.
 
-I recommend using `--init` when running this image.
+It's recommend using `--init` when running this image.
 
 ## Usage
 
@@ -23,9 +23,9 @@ docker run \
   -d \
   --init \
   --name transmission \
-  -p 9091 \
-  -p 51413 \
-  -p 51413/udp \
+  -p 9091:9091 \
+  -p 51413:51413 \
+  -p 51413:51413/udp \
   -e TZ=Europe/Stockholm \
   -v transmission-config:/config \
   -v /host/path/to/downloads:/downloads \
