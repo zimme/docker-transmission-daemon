@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM alpine:3.17.1
 
 LABEL maintainer zimme
 
